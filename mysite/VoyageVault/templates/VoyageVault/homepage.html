@@ -15,9 +15,12 @@
     <h2>Visited Places:</h2>
     <ul>
         {% for place in visited_places %}
-            <li><a href="{% url 'place_detail' place_id=place.id %}">{{ place.name }}</a></li>
+            <li><a href="{% url 'place_detail' place_id=place.id %}">{{ place.name }}  - <a href="{% url 'delete_place' place_id=place.id %}">Delete</a></a></li>
         {% endfor %}
     </ul>
+    <a href="{% url 'add_place' %}">Add Place</a>
+    <a href="{% url 'login_page' %}">Logout</a>
+
 
     <!-- Other content as needed -->
 

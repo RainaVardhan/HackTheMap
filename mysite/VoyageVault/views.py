@@ -5,9 +5,10 @@ from django.urls import reverse
 
 from .models import UserProfile, TravelPlace, TravelEntry, EntryDetail
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import TravelPlaceForm, TravelEntryForm
+from .forms import TravelPlaceForm, TravelEntryForm, SignUpForm
 
 def login_page(request):
     # Assuming you have a User profile for the logged-in user
@@ -26,7 +27,24 @@ def login_page(request):
         form = AuthenticationForm()
 
     return render(request, 'VoyageVault/login.html', {'form': form})
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
 
+            # Create a new user
+            user = User.objects.create_user(username=username, password=password)
+
+            # Authenticate the user and log them in
+            user = authenticate(request, username=username, password=password)
+            login(request, user)
+            return redirect('login_page')
+    else:
+        form = SignUpForm()
+
+    return render(request, 'VoyageVault/signup.html', {'form': form})
 @login_required
 def home(request, user_profile_id):
     # Assuming you have a User profile for the logged-in user
@@ -34,16 +52,9 @@ def home(request, user_profile_id):
     visited_places = TravelPlace.objects.filter(user_profile=user_profile).distinct()
     return render(request, 'VoyageVault/homepage.html', {'user_profile': user_profile, 'visited_places': visited_places})
 @login_required
-def place_detail(request, place_id):
-    place = get_object_or_404(TravelPlace, pk=place_id)
-    entries = TravelEntry.objects.filter(place=place)
-    return render(request, 'VoyageVault/entry_list.html', {'place': place, 'entries': entries})
-
-@login_required
-def entry_detail(request, entry_id):
-    entry = get_object_or_404(TravelEntry, pk=entry_id)
-    entry_details = EntryDetail.objects.filter(entry=entry)
-    return render(request, 'entry.html', {'entry': entry, 'entry_details': entry_details})
+def logout_page(request):
+    logout(request)
+    return redirect('login_page')
 @login_required
 def add_place(request):
     if request.method == 'POST':
@@ -57,6 +68,16 @@ def add_place(request):
         form = TravelPlaceForm()
 
     return render(request, 'VoyageVault/add_place.html', {'form': form})
+@login_required
+def place_detail(request, place_id):
+    place = get_object_or_404(TravelPlace, pk=place_id)
+    entries = TravelEntry.objects.filter(place=place)
+    return render(request, 'VoyageVault/entry_list.html', {'place': place, 'entries': entries})
+@login_required
+def delete_place(request, place_id):
+    place = get_object_or_404(TravelPlace, pk=place_id, user_profile=request.user.userprofile)
+    place.delete()
+    return redirect('home', user_profile_id=request.user.userprofile.id)
 
 @login_required
 def add_entry(request, place_id):
@@ -68,8 +89,25 @@ def add_entry(request, place_id):
             entry = form.save(commit=False)
             entry.place = place
             entry.save()
-            return redirect('place_entries', place_id=place.id)
+            return redirect('place_detail', place_id=place.id)
     else:
         form = TravelEntryForm()
 
     return render(request, 'VoyageVault/add_entry.html', {'form': form, 'place': place})
+@login_required
+def delete_entry(request, entry_id):
+    entry = get_object_or_404(TravelEntry, pk=entry_id, place__user_profile=request.user.userprofile)
+    entry.delete()
+    return redirect('place_detail', place_id=entry.place.id)
+@login_required
+def entry_detail(request, entry_id):
+    entry = get_object_or_404(TravelEntry, pk=entry_id)
+    entry_details = EntryDetail.objects.filter(entry=entry)
+    return render(request, 'entry.html', {'entry': entry, 'entry_details': entry_details})
+
+
+
+
+
+
+

@@ -1,0 +1,21 @@
+<!-- add_place.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Place</title>
+</head>
+<body>
+    <h1>Add a New Place</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Place</button>
+    </form>
+
+    <a href="{% url 'home' user_profile_id=request.user.userprofile.id %}">Back to Home</a>
+
+</body>
+</html>

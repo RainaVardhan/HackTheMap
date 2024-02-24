@@ -9,9 +9,12 @@
     <h1>{{ place.name }} Details</h1>
     <ul>
         {% for entry in entries %}
-            <li><a href="{% url 'entry_detail' entry.id %}">{{ entry.date }} - {{ entry.description }}</a></li>
+            <li><a href="{% url 'entry_detail' entry.id %}">{{ entry.date }} - {{ entry.description }} - <a href="{% url 'delete_entry' entry_id=entry.id %}">Delete</a></a></li>
         {% endfor %}
     </ul>
+    <a href="{% url 'add_entry' place_id=place.id %}">Add Entry</a>
+    <a href="{% url 'home' user_profile_id=place.user_profile.id %}">Back to Homepage</a>
+    <a href="{% url 'login_page' %}">Logout</a>
     <!-- Add more content as needed -->
 </body>
 </html>
