@@ -19,17 +19,19 @@ def login_page(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('home')  # Redirect to the home page or any desired page
+                user_profile, created = UserProfile.objects.get_or_create(user=user)
+                return redirect('home', user_profile_id=user_profile.id)  # Redirect to the home page or any desired page
     else:
         form = AuthenticationForm()
 
     return render(request, 'VoyageVault/login.html', {'form': form})
 
 @login_required
-def home(request):
+def home(request, user_profile_id):
     # Assuming you have a User profile for the logged-in user
-    user_profile = UserProfile.objects.get(user=request.user)
-    return render(request, 'VoyageVault/homepage.html', {'user_profile': user_profile})
+    user_profile = get_object_or_404(UserProfile, id=user_profile_id, user=request.user)
+    visited_places = TravelPlace.objects.filter(user_profile=user_profile).distinct()
+    return render(request, 'VoyageVault/homepage.html', {'user_profile': user_profile, 'visited_places': visited_places})
 @login_required
 def place_detail(request, place_id):
     place = get_object_or_404(TravelPlace, pk=place_id)

@@ -6,7 +6,9 @@ class UserProfile(models.Model):
     bio = models.TextField(blank=True)
 
 class TravelPlace(models.Model):
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE, default=1)
     name = models.CharField(max_length=100)
+
 
     def __str__(self):
         return self.name

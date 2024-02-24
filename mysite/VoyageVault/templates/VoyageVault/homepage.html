@@ -6,20 +6,18 @@
     <title>Home</title>
 </head>
 <body>
-    <h1>Welcome to Our Travel Blog</h1>
+    <h1>Welcome, {{ user_profile.user.username }}!</h1>
 
-    {% if homepage_content %}
-        <h2>User Profile</h2>
-        <p>Username: {{ homepage_content.user_profile.user.username }}</p>
-        <p>Bio: {{ homepage_content.user_profile.bio }}</p>
+    <h2>User Profile</h2>
+    <p>Username: {{ user_profile.user.username }}</p>
+    <p>Bio: {{ user_profile.bio }}</p>
 
-        <h2>Places Traveled</h2>
-        <ul>
-            {% for user_travel in homepage_content.user_profile.usertravel_set.all %}
-                <li><a href="{% url 'place_detail' user_travel.place.id %}">{{ user_travel.place.name }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <h2>Visited Places:</h2>
+    <ul>
+        {% for place in visited_places %}
+            <li>{{ place.name }}</li>
+        {% endfor %}
+    </ul>
 
     <!-- Other content as needed -->
 
