@@ -7,6 +7,7 @@ from .models import UserProfile, TravelPlace, TravelEntry, EntryDetail
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
+from .forms import TravelPlaceForm, TravelEntryForm
 
 def login_page(request):
     # Assuming you have a User profile for the logged-in user
@@ -43,3 +44,32 @@ def entry_detail(request, entry_id):
     entry = get_object_or_404(TravelEntry, pk=entry_id)
     entry_details = EntryDetail.objects.filter(entry=entry)
     return render(request, 'entry.html', {'entry': entry, 'entry_details': entry_details})
+@login_required
+def add_place(request):
+    if request.method == 'POST':
+        form = TravelPlaceForm(request.POST)
+        if form.is_valid():
+            place = form.save(commit=False)
+            place.user_profile = request.user.userprofile
+            place.save()
+            return redirect('home', user_profile_id=request.user.userprofile.id)
+    else:
+        form = TravelPlaceForm()
+
+    return render(request, 'VoyageVault/add_place.html', {'form': form})
+
+@login_required
+def add_entry(request, place_id):
+    place = get_object_or_404(TravelPlace, pk=place_id)
+
+    if request.method == 'POST':
+        form = TravelEntryForm(request.POST)
+        if form.is_valid():
+            entry = form.save(commit=False)
+            entry.place = place
+            entry.save()
+            return redirect('place_entries', place_id=place.id)
+    else:
+        form = TravelEntryForm()
+
+    return render(request, 'VoyageVault/add_entry.html', {'form': form, 'place': place})
