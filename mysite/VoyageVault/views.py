@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -5,7 +6,7 @@ from django.urls import reverse
 
 from .models import UserProfile, TravelPlace, TravelEntry, Activity
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import TravelPlaceForm, TravelEntryForm, SignUpForm, ActivityForm
 
@@ -106,19 +107,6 @@ def delete_entry(request, entry_id):
     entry = get_object_or_404(TravelEntry, pk=entry_id, place__user_profile=request.user.userprofile)
     entry.delete()
     return redirect('place_detail', place_id=entry.place.id)
-@login_required
-def entry_detail(request, entry_id):
-    entry = get_object_or_404(TravelEntry, pk=entry_id)
-    entry_details = EntryDetail.objects.filter(entry=entry)
-    return render(request, 'entry.html', {'entry': entry, 'entry_details': entry_details})
-
-
-
-
-
-
-
-
 @login_required
 def add_activity(request, day_id):
     day = TravelEntry.objects.get(pk=day_id)
