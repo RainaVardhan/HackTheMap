@@ -3,11 +3,11 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
-from .models import UserProfile, TravelPlace, TravelEntry, EntryDetail
+from .models import UserProfile, TravelPlace, TravelEntry, Activity
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import TravelPlaceForm, TravelEntryForm
+from .forms import TravelPlaceForm, TravelEntryForm, ActivityForm
 
 def login_page(request):
     # Assuming you have a User profile for the logged-in user
@@ -39,11 +39,14 @@ def place_detail(request, place_id):
     entries = TravelEntry.objects.filter(place=place)
     return render(request, 'VoyageVault/entry_list.html', {'place': place, 'entries': entries})
 
+
 @login_required
-def entry_detail(request, entry_id):
-    entry = get_object_or_404(TravelEntry, pk=entry_id)
-    entry_details = EntryDetail.objects.filter(entry=entry)
-    return render(request, 'entry.html', {'entry': entry, 'entry_details': entry_details})
+def entry_detail(request, day_id):
+    day = get_object_or_404(TravelEntry, pk=day_id)
+    activities = day.activities.all()  # Assuming you have a related_name='activities' in your Activity model
+    return render(request, 'VoyageVault/entry.html', {'day': day, 'activities': activities})
+
+
 @login_required
 def add_place(request):
     if request.method == 'POST':
@@ -73,3 +76,17 @@ def add_entry(request, place_id):
         form = TravelEntryForm()
 
     return render(request, 'VoyageVault/add_entry.html', {'form': form, 'place': place})
+
+@login_required
+def add_activity(request, day_id):
+    day = TravelEntry.objects.get(pk=day_id)
+    if request.method == 'POST':
+        form = ActivityForm(request.POST, request.FILES)
+        if form.is_valid():
+            activity = form.save(commit=False)
+            activity.day = day
+            activity.save()
+            return redirect('entry_detail', day_id=day_id)  # Redirect to the same page to add more activities
+    else:
+        form = ActivityForm()
+    return render(request, 'VoyageVault/add_activity.html', {'form': form, 'day': day})
