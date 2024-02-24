@@ -2,9 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ entry.date }} Entry</title>
 </head>
 <body>
-
+    <h1>{{ entry.date }} Entry</h1>
+    <p>Description: {{ entry.description }}</p>
+    <p>Rating: {{ entry.rating }}</p>
+    {% if entry.image_url %}
+        <img src="{{ entry.image_url }}" alt="Entry Image">
+    {% endif %}
+    <ul>
+        {% for entry_detail in entry_details %}
+            <li>
+                <p>Description: {{ entry_detail.description }}</p>
+                <p>Rating: {{ entry_detail.rating }}</p>
+                {% if entry_detail.image_url %}
+                    <img src="{{ entry_detail.image_url }}" alt="Entry Detail Image">
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <!-- Add more content as needed -->
 </body>
 </html>

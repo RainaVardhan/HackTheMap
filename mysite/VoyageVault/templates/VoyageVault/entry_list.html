@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Places</title>
+    <title>{{ place.name }} Details</title>
 </head>
 <body>
-    <h1>Travel Places</h1>
+    <h1>{{ place.name }} Details</h1>
     <ul>
-        {% for place in places %}
-            <li><a href="{% url 'place_detail' place.id %}">{{ place.name }}</a></li>
+        {% for entry in entries %}
+            <li><a href="{% url 'entry_detail' entry.id %}">{{ entry.date }} - {{ entry.description }}</a></li>
         {% endfor %}
     </ul>
     <!-- Add more content as needed -->
