@@ -36,7 +36,7 @@ def home(request, user_profile_id):
 def place_detail(request, place_id):
     place = get_object_or_404(TravelPlace, pk=place_id)
     entries = TravelEntry.objects.filter(place=place)
-    return render(request, 'entry_list.html', {'place': place, 'entries': entries})
+    return render(request, 'VoyageVault/entry_list.html', {'place': place, 'entries': entries})
 
 @login_required
 def entry_detail(request, entry_id):

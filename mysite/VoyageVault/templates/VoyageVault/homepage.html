@@ -15,7 +15,7 @@
     <h2>Visited Places:</h2>
     <ul>
         {% for place in visited_places %}
-            <li>{{ place.name }}</li>
+            <li><a href="{% url 'place_detail' place_id=place.id %}">{{ place.name }}</a></li>
         {% endfor %}
     </ul>
 
