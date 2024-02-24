@@ -1,14 +1,13 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+
 from .models import UserProfile, TravelPlace, TravelEntry, EntryDetail
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 
-def home(request):
-    # Assuming you have a User profile for the logged-in user
-    user_profile = UserProfile.objects.get(user=request.user)
-    return render(request, 'home.html', {'user_profile': user_profile})
 def login_page(request):
     # Assuming you have a User profile for the logged-in user
     if request.method == 'POST':
@@ -25,11 +24,12 @@ def login_page(request):
         form = AuthenticationForm()
 
     return render(request, 'VoyageVault/login.html', {'form': form})
-@login_required
-def travel_places(request):
-    places = TravelPlace.objects.all()
-    return render(request, 'homepage.html', {'places': places})
 
+@login_required
+def home(request):
+    # Assuming you have a User profile for the logged-in user
+    user_profile = UserProfile.objects.get(user=request.user)
+    return render(request, 'VoyageVault/homepage.html', {'user_profile': user_profile})
 @login_required
 def place_detail(request, place_id):
     place = get_object_or_404(TravelPlace, pk=place_id)

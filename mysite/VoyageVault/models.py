@@ -11,6 +11,9 @@ class TravelPlace(models.Model):
     def __str__(self):
         return self.name
 
+# class Homepage(models.Model):
+#     user_profile = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
+#     bio = models.TextField(blank=True)
 class TravelEntry(models.Model):
     place = models.ForeignKey(TravelPlace, on_delete=models.CASCADE)
     date = models.DateField()
