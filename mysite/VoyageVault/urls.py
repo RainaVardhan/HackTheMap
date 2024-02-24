@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views
 
@@ -13,4 +15,6 @@ urlpatterns = [
     path('entries/<int:entry_id>/delete/', views.delete_entry, name='delete_entry'),
     path('logout/', views.logout_page, name='logout'),
     path('signup/', views.signup, name='signup'),
-]
+    path('add-activity/<int:day_id>/', views.add_activity, name='add_activity'),
+    path('day/<int:day_id>/', views.entry_detail, name='entry_detail'),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
