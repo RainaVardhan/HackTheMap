@@ -4,8 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+     {% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 </head>
-<body>
+<body id="homepagebody" >
+ <link rel="stylesheet" href="{% static 'VoyageVault/style.css' %}">
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+ <div class="container text-center">
     <h1>Welcome, {{ user_profile.user.username }}!</h1>
 
     {% if editing_bio %}
@@ -20,20 +27,26 @@
         <p id="bioSection"></p>
         <button onclick="redirectToEditBio()">Edit Bio</button>
     {% endif %}
+
+
     <h2>Visited Places:</h2>
+ <div class="container mt-4 content">
+     <div class="place-box">
     <ul>
         {% for place in visited_places %}
-            <li><a href="{% url 'place_detail' place_id=place.id %}">{{ place.name }}  - <a href="{% url 'delete_place' place_id=place.id %}">Delete</a></a></li>
+            <a href="{% url 'place_detail' place_id=place.id %}">{{ place.name }}  - <a href="{% url 'delete_place' place_id=place.id %}">Delete</a></a>
         {% endfor %}
     </ul>
+     </div>
+  </div>
     <a href="{% url 'add_place' %}">Add Place</a>
-    <a href="{% url 'login_page' %}">Logout</a>
+    <a href="{% url 'login_page' %}" class="login-button-styled">Logout</a>
     <script>
         function redirectToEditBio() {
             // Redirect to the edit_bio page
             window.location.href = "{% url 'edit_bio' user_profile_id=user_profile.id %}";
         }
-    </script>=
-
+    </script>
+    </div>
 </body>
 </html>
