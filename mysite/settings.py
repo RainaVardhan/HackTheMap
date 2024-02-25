@@ -98,6 +98,10 @@ DATABASES = {
     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
 
+DATABASES = {
+    'default': dj_database_url.config(default='postgres://depztzglawagmq:d53ce871d1fe993fbe43f892e1f3b263acfa41106a370e4f36f210a92fcafd82@ec2-44-195-248-14.compute-1.amazonaws.com:5432/dafgd6vob7mb3')
+}
+
 # if IS_HEROKU_APP:
 #     DATABASES = {
 #         'default': dj_database_url.config(
