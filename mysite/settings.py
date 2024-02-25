@@ -168,7 +168,7 @@ LOGIN_URL = '/VoyageVault/login/'
 STATIC_URL = 'static/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-MEDIA_ROOT = '/media/'   ##maybe might only need the slash at the end ???? idk tho
+MEDIA_URL = '/media/'   ##maybe might only need the slash at the end ???? idk tho
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_DIRS = (

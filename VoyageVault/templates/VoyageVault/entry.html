@@ -17,6 +17,8 @@
                     {% if activity.image %}
                         <img src="{{ activity.image.url }}" alt="{{ activity.name }}" style="max-width: 500px; height: auto;">
                     {% endif %}
+                    <!-- Edit Link for Activity -->
+                    <a href="{% url 'edit_activity' activity.id %}">Edit Activity</a>
                 </div>
             {% endfor %}
         </div>
