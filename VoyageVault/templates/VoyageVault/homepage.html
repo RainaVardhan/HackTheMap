@@ -4,49 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-     {% load static %}
-{% load bootstrap5 %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+    {% load static %}
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'VoyageVault/style.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
 </head>
-<body id="homepagebody" >
- <link rel="stylesheet" href="{% static 'VoyageVault/style.css' %}">
- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
- <div class="container text-center">
-    <h1>Welcome, {{ user_profile.user.username }}!</h1>
+<body id="homepagebody">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Voyage Vault</a>
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item {% if editing_bio %}active{% endif %}">
+                        <a class="nav-link" href="#" onclick="{% if not editing_bio %}redirectToEditBio();{% endif %}">
+                            {% if editing_bio %}
+                                Save Bio
+                            {% else %}
+                                Edit Bio
+                            {% endif %}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'add_place' %}">Add Place</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login_page' %}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    {% if editing_bio %}
-    <h2>Edit Bio</h2>
-    <form id="bioEditForm" method="post" action="">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save Bio</button>
-    </form>
-    {% else %}
-        <h2>Bio: {{ user_profile.bio }}</h2>
+    <div class="container text-center">
+        <h1>Welcome, {{ user_profile.user.username }}</h1>
+
+        <h2>{{ user_profile.bio }}</h2>
         <p id="bioSection"></p>
-        <button onclick="redirectToEditBio()">Edit Bio</button>
-    {% endif %}
 
-
-    <h2>Visited Places:</h2>
- <div class="container mt-4 content">
-     <div class="place-box">
-    <ul>
-        {% for place in visited_places %}
-            <a href="{% url 'place_detail' place_id=place.id %}">{{ place.name }}  - <a href="{% url 'delete_place' place_id=place.id %}">Delete</a></a>
-        {% endfor %}
-    </ul>
-     </div>
-  </div>
-    <a href="{% url 'add_place' %}">Add Place</a>
-    <a href="{% url 'login_page' %}" class="login-button-styled">Logout</a>
-    <script>
-        function redirectToEditBio() {
-            // Redirect to the edit_bio page
-            window.location.href = "{% url 'edit_bio' user_profile_id=user_profile.id %}";
-        }
-    </script>
+        <h2 class="mt-4">Visited Places:</h2>
+        <div class="container mt-4 content">
+            <div class="place-box">
+                <ul>
+                    {% for place in visited_places %}
+                        <a href="{% url 'place_detail' place_id=place.id %}">{{ place.name }} - <a href="{% url 'delete_place' place_id=place.id %}">Delete</a></a>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <script>
+            function redirectToEditBio() {
+                window.location.href = "{% url 'edit_bio' user_profile_id=user_profile.id %}";
+            }
+        </script>
     </div>
+
+    <!-- Load Bootstrap JavaScript -->
+    {% bootstrap_javascript %}
+
 </body>
 </html>

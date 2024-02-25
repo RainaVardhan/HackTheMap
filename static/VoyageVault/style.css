@@ -46,13 +46,15 @@
 }
 
 #homepagebody {
-    background: white url("images/background.png") no-repeat;
+    background: white url("images/login_background.jpg") no-repeat;
     background-size: cover;
     background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+
+
 }
 #loginbody {
     background: white url("images/login_background.jpg") no-repeat;
