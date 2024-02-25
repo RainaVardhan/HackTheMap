@@ -50,7 +50,7 @@ else:
 INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     'VoyageVault.apps.VoyageConfig', ####SUS
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
