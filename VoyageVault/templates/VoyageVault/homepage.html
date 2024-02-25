@@ -46,9 +46,13 @@
         <div class="container mt-4 content">
             <div class="place-box">
                 <ul>
-                    {% for place in visited_places %}
-                        <a href="{% url 'place_detail' place_id=place.id %}">{{ place.name }} - <a href="{% url 'delete_place' place_id=place.id %}">Delete</a></a>
-                    {% endfor %}
+
+                        {% for place in visited_places %}
+                    <li>
+                            <a href="{% url 'place_detail' place_id=place.id %}" class="rounded-button">{{ place.name }} <a href="{% url 'delete_place' place_id=place.id %}" class="rounded-button">Delete</a></a>
+                        </li>
+                        {% endfor %}
+
                 </ul>
             </div>
         </div>

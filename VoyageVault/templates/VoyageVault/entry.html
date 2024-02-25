@@ -1,33 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Itinerary for {{ day }}</title>
+    {% load static %}
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'VoyageVault/style.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+    <style>
+        body {
+            background: url('{% static "'VoyageVault/image/login_background.jpg'" %}') no-repeat center fixed; /* Add your background image path */
+            font-family: 'Arial', sans-serif;
+            margin: 50px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        div.activity-container {
+            margin-bottom: 10px;
+        }
+
+        img.activity-image {
+            max-width: 500px;
+            height: auto;
+        }
+    </style>
 </head>
-<body>
+<body id="homepagebody">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Voyage Vault</a>
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'add_activity' day_id=day.id %}">Add Activity</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'place_detail' place_id=day.place.id %}">Back to Entry List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' user_profile_id=place.user_profile.id %}">Back to Homepage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login_page' %}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <h1>Itinerary for {{ day }}</h1>
+
     {% if activities %}
         <div>
             {% for activity in activities %}
-                <div style="margin-bottom: 20px;">
+                <div class="activity-container">
                     <h2>{{ activity.name }}</h2>
                     <p>Description: {{ activity.description }}</p>
                     <p>Rating: {{ activity.rating }}/5</p>
                     {% if activity.image %}
-                        <img src="{{ activity.image.url }}" alt="{{ activity.name }}" style="max-width: 500px; height: auto;">
+                        <img class="activity-image" src="{{ activity.image.url }}" alt="{{ activity.name }}">
                     {% endif %}
                     <!-- Edit Link for Activity -->
-                    <a href="{% url 'edit_activity' activity.id %}">Edit Activity</a>
+                    <a href="{% url 'edit_activity' activity.id %}" class="rounded-button">Edit Activity</a>
                 </div>
             {% endfor %}
         </div>
     {% else %}
         <p>No activities added yet.</p>
     {% endif %}
-    <a href="{% url 'add_activity' day_id=day.id %}">Add Activity</a>
-    <a href="{% url 'place_detail' place_id=day.place.id %}">Back to Entry List</a>
-    <a href="{% url 'home' user_profile_id=place.user_profile.id %}">Back to Homepage</a>
-    <a href="{% url 'login_page' %}">Logout</a>
+
 </body>
 </html>

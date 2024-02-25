@@ -1,3 +1,11 @@
+body {
+    background: url("images/login_background.jpg") no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 .login-button-styled {
     /*background-color: #007bff;*/
     /*color: #fff;*/
@@ -57,7 +65,7 @@
 
 }
 #loginbody {
-    background: white url("images/login_background.jpg") no-repeat;
+    background: url("images/login_background.jpg") no-repeat;
     background-size: cover;
     /* Center the background image */
     background-position: center;
