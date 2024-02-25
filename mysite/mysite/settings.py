@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-s#nh#k0j0+h8w9v93gvogxau6l2b$)gx5l1-2e&66jm$hrtt3k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://voyagevaultapp-c212d1896fbd.herokuapp.com/', localhost]
+ALLOWED_HOSTS = ['https://voyagevaultapp-c212d1896fbd.herokuapp.com/']
 
 
 # Application definition
@@ -123,6 +123,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_ROOT = '/media/'   ##maybe might only need the slash at the end ???? idk tho
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
