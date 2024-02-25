@@ -3,7 +3,7 @@ from django.urls import path, include, re_path
 from django.views.generic import RedirectView
 
 urlpatterns = [
-    re_path(r'^$', RedirectView.as_view(url='/VoyageVault/login', permanent=True)),
+    re_path(r'^$', RedirectView.as_view(url='/VoyageVault/login/', permanent=True)),
     path("VoyageVault/", include("VoyageVault.urls")),
     # path("admin/", admin.site.urls),
     # path("", include("VoyageVault.urls"))
