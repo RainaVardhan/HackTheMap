@@ -1,10 +1,37 @@
 .login-button-styled {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    /*background-color: #007bff;*/
+    /*color: #fff;*/
+    /*padding: 10px 20px;*/
+    /*border: none;*/
+    /*border-radius: 5px;*/
+    /*cursor: pointer;*/
+    font-size: 15px;
+    text-decoration: none;
+    /*text-transform: uppercase;*/
+    letter-spacing: 5px;
+    padding: 18px 40px;
+    clip-path: polygon(71% 10%, 95% 49%, 71% 89%, 8% 89%, 20% 50%, 9% 9%);
+    background: dodgerblue;
+    color: #000;
+    transition: 0.5s;
+}
+
+.logout-button-styled {
+    /*background-color: #007bff;*/
+    /*color: #fff;*/
+    /*padding: 10px 20px;*/
+    /*border: none;*/
+    /*border-radius: 5px;*/
+    /*cursor: pointer;*/
+    font-size: 15px;
+    text-decoration: none;
+    /*text-transform: uppercase;*/
+    letter-spacing: 5px;
+    padding: 18px 40px;
+    clip-path: polygon(71% 10%, 95% 49%, 71% 89%, 8% 89%, 20% 50%, 9% 9%);
+    background: dodgerblue;
+    color: #000;
+    transition: 0.5s;
 }
 
 .rounded-button {
@@ -18,10 +45,35 @@
     transition: color 0.3s ease, border-color 0.3s ease;
 }
 
-body {
+#homepagebody {
+    background: white url("images/background.png") no-repeat;
+    background-size: cover;
+    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+}
+#loginbody {
+    background: white url("images/login_background.jpg") no-repeat;
+    background-size: cover;
+    /* Center the background image */
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
 
+h1 {
+     font-family: "French Script MT";
+    font-size: xxx-large;
+}
+
+.place-box {
+    background-color:rgba(255,255,255,0.0);
+    padding: 1px;
+    border-radius: 10px;
+    color: green;
+    margin-top: 100px;
 }
