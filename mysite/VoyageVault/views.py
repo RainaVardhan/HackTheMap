@@ -138,3 +138,5 @@ def add_activity(request, day_id):
     else:
         form = ActivityForm()
     return render(request, 'VoyageVault/add_activity.html', {'form': form, 'day': day})
+
+

@@ -1,18 +1,49 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Home</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Welcome, {{ user_profile.user.username }}!</h1>-->
+<!--    <p>{{ user_profile.bio }}</p>-->
+<!--    &lt;!&ndash; Add more content as needed &ndash;&gt;-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+        {% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 </head>
-<body>
-    <h1>Login</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
-</body>
+<!--    <div class="container mt-5">-->
+        <div class="container text-center">
+            <body>
+              <link rel="stylesheet" href="{% static 'VoyageVault/style.css' %}">
+<!--              <div class="container" style="padding: 60px;">-->
+<!--                </div>-->
+              <h1>Welcome to Voyage Vault!</h1>
+               <div class="container" style="padding: 20px;">
+                </div>
+  <div class="container" style="padding: 40px;">
+      <form method="post" >
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="login-button-styled">Login</button>
+                </form>
+                </div>
+
+              <div class="container" style="padding: 20px;">
+                   <p>Don't have an account? <a href="{% url 'signup' %}" class="rounded-button">Sign Up</a></p>
+                </div>
+            </body>
+        </div>
+<!--    </div>-->
 </html>
 
