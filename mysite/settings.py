@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-s#nh#k0j0+h8w9v93gvogxau6l2b$)gx5l1-2e&66jm$hrtt3k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://voyagevaultapp-c212d1896fbd.herokuapp.com/']
+ALLOWED_HOSTS = ['https://voyagevaultapp-c212d1896fbd.herokuapp.com/', '127.0.0.1']
 
 
 # Application definition
