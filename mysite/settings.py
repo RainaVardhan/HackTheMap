@@ -29,12 +29,12 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY",
                             default=secrets.token_urlsafe(nbytes=64),)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 
 if not IS_HEROKU_APP:
-    DEBUG = True
+    DEBUG = False
 
 if IS_HEROKU_APP:
     ALLOWED_HOSTS = ["*"]
