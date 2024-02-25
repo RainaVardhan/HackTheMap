@@ -29,17 +29,17 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY",
                             default=secrets.token_urlsafe(nbytes=64),)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 
 if not IS_HEROKU_APP:
-    DEBUG = False
+    DEBUG = True
 
 if IS_HEROKU_APP:
     ALLOWED_HOSTS = ["*"]
 else:
-    ALLOWED_HOSTS = ['127.0.0.1']
+    ALLOWED_HOSTS = []
 
 # ALLOWED_HOSTS = ['https://voyagevaultapp-c212d1896fbd.herokuapp.com/', '127.0.0.1']
 
@@ -95,12 +95,12 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-}
-
-DATABASES = {
     'default': dj_database_url.config(default='postgres://depztzglawagmq:d53ce871d1fe993fbe43f892e1f3b263acfa41106a370e4f36f210a92fcafd82@ec2-44-195-248-14.compute-1.amazonaws.com:5432/dafgd6vob7mb3')
 }
+
+# DATABASES = {
+#     'default': dj_database_url.config(default='postgres://depztzglawagmq:d53ce871d1fe993fbe43f892e1f3b263acfa41106a370e4f36f210a92fcafd82@ec2-44-195-248-14.compute-1.amazonaws.com:5432/dafgd6vob7mb3')
+# }
 
 # if IS_HEROKU_APP:
 #     DATABASES = {
@@ -161,9 +161,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-import django_heroku
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-django_heroku.settings(locals())
 LOGIN_URL = '/VoyageVault/login/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -174,17 +171,18 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'   ##maybe might only need the slash at the end ???? idk tho
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'static'),
-# )
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
-# STORAGES = {
-#     "staticfiles": {
-#         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-#     },
-# }
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 WHITENOISE_KEEP_ONLY_HASHED_FILES = True
+
 
 
 
