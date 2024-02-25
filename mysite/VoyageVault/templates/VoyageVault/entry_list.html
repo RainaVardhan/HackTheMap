@@ -6,6 +6,7 @@
     <title>{{ place.name }} Details</title>
 </head>
 <body>
+
     <h1>{{ place.name }} Details</h1>
     <ul>
         {% for entry in entries %}
@@ -15,6 +16,5 @@
     <a href="{% url 'add_entry' place_id=place.id %}">Add Entry</a>
     <a href="{% url 'home' user_profile_id=place.user_profile.id %}">Back to Homepage</a>
     <a href="{% url 'login_page' %}">Logout</a>
-    <!-- Add more content as needed -->
 </body>
 </html>
