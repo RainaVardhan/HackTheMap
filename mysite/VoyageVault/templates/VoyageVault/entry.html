@@ -7,7 +7,6 @@
 </head>
 <body>
     <h1>Itinerary for {{ day }}</h1>
-    <a href="{% url 'add_activity' day_id=day.id %}">Add Activity</a>
     {% if activities %}
         <div>
             {% for activity in activities %}
@@ -24,5 +23,9 @@
     {% else %}
         <p>No activities added yet.</p>
     {% endif %}
+    <a href="{% url 'add_activity' day_id=day.id %}">Add Activity</a>
+    <a href="{% url 'place_detail' place_id=day.place.id %}">Back to Entry List</a>
+    <a href="{% url 'home' user_profile_id=place.user_profile.id %}">Back to Homepage</a>
+    <a href="{% url 'login_page' %}">Logout</a>
 </body>
 </html>

@@ -66,7 +66,9 @@ def place_detail(request, place_id):
 def entry_detail(request, day_id):
     day = get_object_or_404(TravelEntry, pk=day_id)
     activities = day.activities.all()  # Assuming you have a related_name='activities' in your Activity model
-    return render(request, 'VoyageVault/entry.html', {'day': day, 'activities': activities})
+    place = day.place
+    user_profile = place.user_profile
+    return render(request, 'VoyageVault/entry.html', {'day': day, 'activities': activities, 'place': place, 'user_profile': user_profile})
 
 
 @login_required
