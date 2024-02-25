@@ -8,10 +8,18 @@
 <body>
     <h1>Welcome, {{ user_profile.user.username }}!</h1>
 
-    <h2>User Profile</h2>
-    <p>Username: {{ user_profile.user.username }}</p>
-    <p>Bio: {{ user_profile.bio }}</p>
-
+    {% if editing_bio %}
+    <h2>Edit Bio</h2>
+    <form id="bioEditForm" method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Bio</button>
+    </form>
+    {% else %}
+        <h2>Bio: {{ user_profile.bio }}</h2>
+        <p id="bioSection"></p>
+        <button onclick="redirectToEditBio()">Edit Bio</button>
+    {% endif %}
     <h2>Visited Places:</h2>
     <ul>
         {% for place in visited_places %}
@@ -20,9 +28,12 @@
     </ul>
     <a href="{% url 'add_place' %}">Add Place</a>
     <a href="{% url 'login_page' %}">Logout</a>
-
-
-    <!-- Other content as needed -->
+    <script>
+        function redirectToEditBio() {
+            // Redirect to the edit_bio page
+            window.location.href = "{% url 'edit_bio' user_profile_id=user_profile.id %}";
+        }
+    </script>=
 
 </body>
 </html>

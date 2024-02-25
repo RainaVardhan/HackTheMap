@@ -8,7 +8,7 @@ from .models import UserProfile, TravelPlace, TravelEntry, Activity
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import TravelPlaceForm, TravelEntryForm, SignUpForm, ActivityForm
+from .forms import TravelPlaceForm, TravelEntryForm, SignUpForm, ActivityForm, UserProfileForm
 
 def login_page(request):
     # Assuming you have a User profile for the logged-in user
@@ -51,6 +51,22 @@ def home(request, user_profile_id):
     user_profile = get_object_or_404(UserProfile, id=user_profile_id, user=request.user)
     visited_places = TravelPlace.objects.filter(user_profile=user_profile).distinct()
     return render(request, 'VoyageVault/homepage.html', {'user_profile': user_profile, 'visited_places': visited_places})
+# views.py
+
+@login_required
+def edit_bio(request, user_profile_id):
+    user_profile = get_object_or_404(UserProfile, id=user_profile_id, user=request.user)
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            return redirect('home', user_profile_id=user_profile.id)
+    else:
+        form = UserProfileForm(instance=user_profile)
+
+    return render(request, 'VoyageVault/edit_bio.html', {'form': form, 'user_profile': user_profile})
+
 @login_required
 def logout_page(request):
     logout(request)

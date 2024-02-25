@@ -2,14 +2,16 @@
 from django.contrib.auth.models import User
 
 from django import forms
-from .models import TravelPlace, TravelEntry, Activity
+from .models import TravelPlace, TravelEntry, Activity, UserProfile
 
 # forms.py
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import UserProfile
-
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['bio']
 class SignUpForm(UserCreationForm):
     username = forms.CharField(label='Username')
 

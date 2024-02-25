@@ -5,6 +5,9 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
 
+    def __str__(self):
+        return self.user.username
+
 class TravelPlace(models.Model):
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE, default=1)
     name = models.CharField(max_length=100)
