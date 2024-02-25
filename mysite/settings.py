@@ -36,9 +36,9 @@ if not IS_HEROKU_APP:
     DEBUG = True
 
 if IS_HEROKU_APP:
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ['pleasework-1baf3042748e.herokuapp.com', '127.0.0.1']
 else:
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ['127.0.0.1']
 
 # ALLOWED_HOSTS = ['https://voyagevaultapp-c212d1896fbd.herokuapp.com/', '127.0.0.1']
 
