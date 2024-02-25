@@ -25,8 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-s#nh#k0j0+h8w9v93gvogxau6l2b$)gx5l1-2e&66jm$hrtt3k'
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY",
-                            default=secrets.token_urlsafe(nbytes=64),)
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,9 +36,9 @@ if not IS_HEROKU_APP:
     DEBUG = True
 
 if IS_HEROKU_APP:
-    ALLOWED_HOSTS = ["*"]
+    ALLOWED_HOSTS = ['pleasework-1baf3042748e.herokuapp.com', '127.0.0.1']
 else:
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ['127.0.0.1']
 
 # ALLOWED_HOSTS = ['https://voyagevaultapp-c212d1896fbd.herokuapp.com/', '127.0.0.1']
 
