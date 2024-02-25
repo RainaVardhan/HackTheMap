@@ -29,17 +29,17 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY",
                             default=secrets.token_urlsafe(nbytes=64),)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 
 if not IS_HEROKU_APP:
-    DEBUG = True
+    DEBUG = False
 
 if IS_HEROKU_APP:
     ALLOWED_HOSTS = ["*"]
 else:
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ['127.0.0.1']
 
 # ALLOWED_HOSTS = ['https://voyagevaultapp-c212d1896fbd.herokuapp.com/', '127.0.0.1']
 
@@ -171,7 +171,7 @@ LOGIN_URL = '/VoyageVault/login/'
 STATIC_URL = '/static/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-MEDIA_ROOT = '/media/'   ##maybe might only need the slash at the end ???? idk tho
+MEDIA_URL = '/media/'   ##maybe might only need the slash at the end ???? idk tho
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # STATICFILES_DIRS = (

@@ -18,4 +18,5 @@ urlpatterns = [
     path('add-activity/<int:day_id>/', views.add_activity, name='add_activity'),
     path('day/<int:day_id>/', views.entry_detail, name='entry_detail'),
     path('edit_bio/<int:user_profile_id>/', views.edit_bio, name='edit_bio'),
+    path('edit_activity/<int:activity_id>/', views.edit_activity, name='edit_activity'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

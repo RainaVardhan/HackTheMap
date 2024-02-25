@@ -139,4 +139,16 @@ def add_activity(request, day_id):
         form = ActivityForm()
     return render(request, 'VoyageVault/add_activity.html', {'form': form, 'day': day})
 
+@login_required
+def edit_activity(request, activity_id):
+    # Check if at least one activity exists for editing
+    activity = get_object_or_404(Activity, pk=activity_id)
+    if request.method == 'POST':
+        form = ActivityForm(request.POST, request.FILES, instance=activity)
+        if form.is_valid():
+            form.save()
+            return redirect('entry_detail', day_id=activity.day.id)  # Assume 'entry_detail' is the name of your detail view
+    else:
+        form = ActivityForm(instance=activity)
+    return render(request, 'VoyageVault/edit_activity.html', {'form': form, 'activity': activity})
 
