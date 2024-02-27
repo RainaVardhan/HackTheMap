@@ -59,7 +59,7 @@
         <h1>{{ place.name }} Details</h1>
         <ul>
             {% for entry in entries %}
-                <li><a href="{% url 'entry_detail' entry.id %}" class="rounded-button">"{{ entry.date }}: {{ entry.description }}  <a href="{% url 'delete_entry' entry_id=entry.id %}"class="rounded-button">Delete</a></a></li>
+                <li><a href= "{% url 'entry_detail' entry.id %}" class="rounded-button">{{ entry.date }}: {{ entry.description }}  <a href="{% url 'delete_entry' entry_id=entry.id %}"class="rounded-button">Delete</a></a></li>
             {% endfor %}
         </ul>
     </div>

@@ -11,24 +11,29 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
     <style>
-        body {
-            background: url('{% static "'VoyageVault/image/login_background.jpg'" %}') no-repeat center fixed; /* Add your background image path */
-            font-family: 'Arial', sans-serif;
-            margin: 50px;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
+    body {
+        background: url('{% static "'VoyageVault/image/login_background.jpg'" %}') no-repeat center fixed;
+        font-family: 'Arial', sans-serif;
+        margin: 50px;
+    }
 
-        div.activity-container {
-            margin-bottom: 10px;
-        }
+    ul {
+        list-style: none;
+        padding: 0;
+    }
 
-        img.activity-image {
-            max-width: 500px;
-            height: auto;
-        }
+    div.activity-container {
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+    }
+
+    /* Apply background color to the container div */
+    div.container {
+        padding: 15px;
+        border-radius: 10px;
+    }
     </style>
 </head>
 <body id="homepagebody">
@@ -57,7 +62,7 @@
     <h1>Itinerary for {{ day }}</h1>
 
     {% if activities %}
-        <div>
+        <div class="container">
             {% for activity in activities %}
                 <div class="activity-container">
                     <h2>{{ activity.name }}</h2>
